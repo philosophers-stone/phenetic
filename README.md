@@ -9,6 +9,13 @@ similar groups. It creates functions that given a single example of a data
 structure will allow the programmer to determine whether any other data
 structures are similar.
 
+Phenetics is the biological science of classifying organisms based on their
+structure w/o reference to their evolutionary history. This library works in
+a similar manner in that it examines a single member of the group and creates
+a function that will determine whether any other data structure is similar.
+
+
+
 
 
 
