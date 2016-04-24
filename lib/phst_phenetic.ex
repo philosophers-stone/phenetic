@@ -11,6 +11,10 @@ defmodule PhStPhenetic do
   end
 
   def similar(edata) do
-   fn _data -> false == edata end
+   vfunc = build_validator(edata)
+   fn(data) ->
+    similar?(vfunc.(data))
+   end
   end
+
 end

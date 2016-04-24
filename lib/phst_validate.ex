@@ -68,11 +68,38 @@ defmodule PhStValidate do
   true if all the terms in the data structure are the Atom true.
   """
   def similar?(data) do
-    similar_potion = %{ Atom => &true_atom/2 }
-
+    similar_potion = %{ List => &true_list/1,
+                        Tuple => &true_tuple/1,
+                        Map => &true_map/1,
+                        Keyword => &true_keyword/1 }
+    transform(data, similar_potion)
   end
 
-  defp true_atom(atom) do
+  # return true if list consists entirely of true atoms.
+  # Should probably raise error if any element is either
+  # not true or false.
 
+  defp true_list(list) do
+    Enum.find(list, true, &is_false/1)
+  end
+
+  defp true_tuple(tuple) do
+    tuple |> Tuple.to_list |> true_list
+  end
+
+  defp true_map(map) do
+    map |> Map.values |> true_list
+  end
+
+  defp true_keyword(klist) do
+    klist |> Keyword.values |> true_list
+  end
+
+  defp is_false(item) do
+    case item do
+      true -> false
+      false -> true
+      _ -> raise(ArgumentError, message: "#{item} is not boolean")
+    end
   end
 end
