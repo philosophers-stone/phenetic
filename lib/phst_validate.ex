@@ -87,6 +87,7 @@ defmodule PhStValidate do
     tuple |> Tuple.to_list |> true_list
   end
 
+  # Should we also look at keywords
   defp true_map(map) do
     map |> Map.values |> true_list
   end

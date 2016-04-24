@@ -22,6 +22,13 @@ defmodule PhStPheneticTest do
     assert false == congruent.(new_list)
   end
 
+  test "transform quote do output" do
+    data = quote do: Enum.map(1..3, fn(x) -> x*x end)
+    data_transform = quote do: Enum.map(1..3, fn(y) -> y*y end)
+    congruent =  PhStPhenetic.congruent(data)
+    assert true == congruent.(data_transform)
+  end
+
 
 
   test "similar is identity List" do
