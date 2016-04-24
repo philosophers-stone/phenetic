@@ -27,6 +27,6 @@ defmodule PhstPhenetic.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [:phst_transform, "~> 0.9"]
+    [{:phst_transform, "~> 1.0"}]
   end
 end
