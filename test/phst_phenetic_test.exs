@@ -29,7 +29,12 @@ defmodule PhStPheneticTest do
     assert true == congruent.(data_transform)
   end
 
-
+  test "similar respects List size not equal" do
+    list = [1, 2, "a", "b"]
+    new_list = [400, "a string", 300, "b string", 400]
+    similar = PhStPhenetic.similar(list)
+    assert true == similar.(new_list)
+  end
 
   test "similar is identity List" do
     list = [1, 2, "a", "b"]
