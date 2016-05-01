@@ -22,7 +22,7 @@ defmodule PhStPheneticTest do
     assert false == congruent.(new_list)
   end
 
-  test "transform quote do output" do
+  test "congruent quote do output" do
     data = quote do: Enum.map(1..3, fn(x) -> x*x end)
     data_transform = quote do: Enum.map(1..3, fn(y) -> y*y end)
     congruent =  PhStPhenetic.congruent(data)
@@ -41,4 +41,11 @@ defmodule PhStPheneticTest do
     similar = PhStPhenetic.similar(list)
     assert true == similar.(list)
   end
+
+  test "similar tracks data types" do
+    list = [1, 2, "a", "b"]
+    similar = PhStPhenetic.similar(list)
+    assert false == similar.(["a", :a, 1, 2])
+  end
+
 end

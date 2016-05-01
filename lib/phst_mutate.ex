@@ -15,7 +15,7 @@ defmodule PhStMutate do
                      }
 
 
-    PhStTransform.transform(data, mutate_potion)
+    transform(data, mutate_potion)
   end
 
   #[Atom, Integer, Float, BitString, Regexp, PID, Function, Reference, Port, Tuple, List, Map]
@@ -69,7 +69,7 @@ defmodule PhStMutate do
 #     try do
 #             [atom_by_number(n)] ++ atoms_starting_at(n + 1)
 #     rescue
-#       ArguementError -> []
+#       ArgumentError -> []
 #     end
 #   end
 end
