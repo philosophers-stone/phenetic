@@ -1,4 +1,4 @@
-defmodule PhstPhenetic.Mixfile do
+defmodule PhStPhenetic.Mixfile do
   use Mix.Project
 
   def project do
