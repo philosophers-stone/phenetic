@@ -48,4 +48,11 @@ defmodule PhStPheneticTest do
     assert false == similar.(["a", :a, 1, 2])
   end
 
+  test "exact respects List size and types" do
+    list = [1, 2, "a", "b"]
+    new_list = [400, "a string", 300, "b string"]
+    exact = PhStPhenetic.exact(list)
+    assert false == exact.(new_list)
+  end
+
 end

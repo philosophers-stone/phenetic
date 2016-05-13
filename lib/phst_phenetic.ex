@@ -3,7 +3,7 @@ defmodule PhStPhenetic do
   import PhStValidate
 
   @doc """
-  Returns a function returns true or false if the argument to the function
+  Returns a function that returns true or false if the argument to the function
   is congruent to the orginal data structure. congruent is defined by all
   data structures have the same size as the original and having the same
   data types as basic elements.
@@ -17,7 +17,7 @@ defmodule PhStPhenetic do
   end
 
   @doc """
-  Returns a function returns true or false if the argument to the function
+  Returns a function that returns true or false if the argument to the function
   is similar to the orginal data structure. The difference between congruent
   and similar is that similar relaxs the constraint on size for data structures.
   """
@@ -28,4 +28,17 @@ defmodule PhStPhenetic do
    end
   end
 
+  @doc """
+  Returns a function that returns true or false if the argument to the function
+  is an exact to the orginal data structure. exact is defined by all
+  data structures have the same size as the original and having the same
+  data types in the same order.
+  """
+  def exact(edata) do
+    vfunc= build_typer(edata)
+    true_state = vfunc.(edata)
+    fn(data) ->
+      vfunc.(data) == true_state
+    end
+  end
 end
