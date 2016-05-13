@@ -103,4 +103,59 @@ defmodule PhStValidate do
       _ -> raise(ArgumentError, message: "#{item} is not boolean")
     end
   end
+
+  def build_typer(data) do
+    valid_potion = %{ Atom => &type_atom/3,
+                      Integer => &type_integer/3,
+                      Float   =>  &type_float/3,
+                      BitString => &type_bitstring/3,
+                     }
+
+    {_, validator } = transmogrify(data, valid_potion)
+    fn new_data ->
+      PhStTransform.transform(new_data, PhStTransform.Potion.brewify(validator))
+    end
+  end
+
+ defp type_atom(_atom, potion, depth) do
+    atom_f = PhStTransform.Potion.distill(Atom, potion)
+    new_atom_f = fn
+        (_a, p, ^depth) -> {Atom, p}
+        (a, p, d) -> atom_f.(a, p, d)
+      end
+    new_potion = Map.put(potion, Atom, new_atom_f )
+    {false, new_potion}
+  end
+
+  defp type_integer(_integer, potion, depth) do
+    integer_f = PhStTransform.Potion.distill(Integer, potion)
+    new_integer_f = fn
+        (_i, p, ^depth) -> {Integer, p}
+        (i, p, d) -> integer_f.(i, p, d)
+      end
+    new_potion = Map.put(potion, Integer, new_integer_f )
+    {false, new_potion}
+  end
+
+  defp type_float(_float, potion, depth) do
+    float_f = PhStTransform.Potion.distill(Float, potion)
+    new_float_f = fn
+        (_f, p, ^depth) -> {Float, p}
+        (f, p, d) -> float_f.(f, p, d)
+      end
+    new_potion = Map.put(potion, Float, new_float_f )
+    {false, new_potion}
+  end
+
+  defp type_bitstring(_bitstring, potion, depth) do
+    bitstring_f = PhStTransform.Potion.distill(BitString, potion)
+    new_bitstring_f = fn
+        (_b, p, ^depth) -> {BitString, p}
+        (b, p, d) -> bitstring_f.(b, p, d)
+      end
+    new_potion = Map.put(potion, BitString, new_bitstring_f )
+    {false, new_potion}
+  end
+
+
 end
